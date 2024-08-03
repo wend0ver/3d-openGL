@@ -1,0 +1,15 @@
+﻿  main.cpp
+C:\Users\Liams\Downloads\openGL-template-window\openGL\openGL\main.cpp(223,36): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Liams\Downloads\openGL-template-window\openGL\openGL\main.cpp(227,36): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Liams\Downloads\openGL-template-window\openGL\openGL\main.cpp(231,36): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Liams\Downloads\openGL-template-window\openGL\openGL\main.cpp(235,36): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Liams\Downloads\openGL-template-window\openGL\openGL\main.cpp(239,36): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Liams\Downloads\openGL-template-window\openGL\openGL\main.cpp(243,36): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Liams\Downloads\openGL-template-window\openGL\openGL\main.cpp(249,39): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Liams\Downloads\openGL-template-window\openGL\openGL\main.cpp(253,39): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Liams\Downloads\openGL-template-window\openGL\openGL\main.cpp(257,39): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Liams\Downloads\openGL-template-window\openGL\openGL\main.cpp(261,39): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Liams\Downloads\openGL-template-window\openGL\openGL\main.cpp(265,39): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Liams\Downloads\openGL-template-window\openGL\openGL\main.cpp(269,39): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
+  openGL.vcxproj -> C:\Users\Liams\Downloads\openGL-template-window\openGL\x64\Debug\openGL.exe

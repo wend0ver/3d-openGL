@@ -1,0 +1,19 @@
+﻿  main.cpp
+C:\Users\Liams\Downloads\openGL-template-window\openGL\openGL\main.cpp(223,36): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Liams\Downloads\openGL-template-window\openGL\openGL\main.cpp(227,36): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Liams\Downloads\openGL-template-window\openGL\openGL\main.cpp(231,36): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Liams\Downloads\openGL-template-window\openGL\openGL\main.cpp(235,36): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Liams\Downloads\openGL-template-window\openGL\openGL\main.cpp(239,36): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Liams\Downloads\openGL-template-window\openGL\openGL\main.cpp(243,36): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Liams\Downloads\openGL-template-window\openGL\openGL\main.cpp(249,39): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Liams\Downloads\openGL-template-window\openGL\openGL\main.cpp(253,39): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Liams\Downloads\openGL-template-window\openGL\openGL\main.cpp(257,39): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Liams\Downloads\openGL-template-window\openGL\openGL\main.cpp(261,39): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Liams\Downloads\openGL-template-window\openGL\openGL\main.cpp(265,39): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Liams\Downloads\openGL-template-window\openGL\openGL\main.cpp(269,39): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+  Generating code
+  0 of 107 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  openGL.vcxproj -> C:\Users\Liams\Downloads\openGL-template-window\openGL\x64\Release\openGL.exe
