@@ -5,6 +5,16 @@
 #include <cmath>
 #include <list>
 
+// camear rot stuff
+
+// Global variables to keep track of the state
+bool isLeftMouseButtonPressed = false;
+double lastMouseX = 0.0, lastMouseY = 0.0;
+
+
+// pi
+const float PI = 3.14159265358979323846f;
+
 // Window dimensions
 const int windowWidth = 1080;
 const int windowHeight = 1080;
@@ -28,8 +38,9 @@ class Mesh {
 public:
     std::array<float, 3> location;
     std::array<float, 3> size;
+    std::array<float, 3> color; // Add color attribute (RGB format)
 
-    Mesh(std::array<float, 3> loc, std::array<float, 3> sz) : location(loc), size(sz) {}
+    Mesh(std::array<float, 3> loc, std::array<float, 3> sz, std::array<float, 3> col) : location(loc), size(sz), color(col) {}
 
     void draw() {
         float x = location[0];
@@ -38,6 +49,11 @@ public:
         float width = size[0];
         float height = size[1];
         float depth = size[2];
+        float r = color[0] / 255;
+        float g = color[1] / 255;
+        float b = color[2] / 255;
+
+        glColor3f(r, g, b); // Set the color for the mesh
 
         glBegin(GL_QUADS);
 
@@ -85,10 +101,30 @@ public:
 std::list<Mesh> meshes;
 
 void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods) {
-    if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
-        double mouseX, mouseY;
-        glfwGetCursorPos(window, &mouseX, &mouseY);
-        std::cout << "Mouse position: (" << mouseX << ", " << mouseY << ")" << std::endl;
+    if (button == GLFW_MOUSE_BUTTON_RIGHT) {
+        if (action == GLFW_PRESS) {
+            isLeftMouseButtonPressed = true;
+            glfwGetCursorPos(window, &lastMouseX, &lastMouseY);
+        }
+        else if (action == GLFW_RELEASE) {
+            isLeftMouseButtonPressed = false;
+        }
+    }
+}
+
+void cursorPositionCallback(GLFWwindow* window, double mouseX, double mouseY) {
+    if (isLeftMouseButtonPressed) {
+        // Calculate the change in mouse position
+        double deltaX = mouseX - lastMouseX;
+        double deltaY = mouseY - lastMouseY;
+
+        // Update the camera rotation
+        camerarotY += static_cast<float>(deltaX / 5); // Left and right angle
+        camerarotX -= static_cast<float>(deltaY / 5); // Up and down angle
+
+        // Update the last mouse position
+        lastMouseX = mouseX;
+        lastMouseY = mouseY;
     }
 }
 
@@ -190,13 +226,20 @@ int main()
     // Set the mouse button callback
     glfwSetMouseButtonCallback(window, mouseButtonCallback);
 
+    // Set the cursor position callback
+    glfwSetCursorPosCallback(window, cursorPositionCallback);
+
     //   Add To List           Location                  Size
     //meshes.push_back({ { -1.0f, 3.5f, -2.5f }, { 5.0f, 15.0f, 5.0f } });
-
+    // 
     // Adds a mesh to the list
-    meshes.push_back({ { -1.0f, 3.5f, -2.5f }, { 5.0f, 15.0f, 5.0f } });
+    meshes.push_back({ { -250.0f, 0.0f, -250.0f }, { 500.0f, 0.1f, 500.0f }, {0, 255, 0} });
 
-    meshes.push_back({ { 0.0f, 0.0f, 0.0f }, { 50.0f, 0.1f, 50.0f } });
+    meshes.push_back({ { 0.0f, 0.0f, -50.0f }, { 25.0f, 14.0f, 20.0f }, {110, 72, 13} });
+    meshes.push_back({ { 0.0f, 14.0f, -50.0f }, { 25.0f, 1.0f, 20.0f }, {0, 100, 0} });
+
+    meshes.push_back({ { 25.0f, 0.0f, -50.0f }, { 25.0f, 18.0f, 20.0f }, {110, 72, 13} });
+    meshes.push_back({ { 25.0f, 18.0f, -50.0f }, { 25.0f, 1.0f, 20.0f }, {0, 100, 0} });
 
     // Initialize time
     double lastTime = glfwGetTime();
@@ -218,56 +261,48 @@ int main()
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // Set the background color
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        // Update camera position based on WASD keys
         if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
-            cameraX += playerSpeed * deltaTime;
+            float radianRotY = camerarotY * (PI / 180.0f); // Convert degrees to radians
+
+            cameraX += playerSpeed * deltaTime * std::cos(radianRotY + PI / 2);
+            cameraZ += playerSpeed * deltaTime * std::sin(radianRotY + PI / 2);
         }
 
         if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
-            cameraX -= playerSpeed * deltaTime;
+            float radianRotY = camerarotY * (PI / 180.0f); // Convert degrees to radians
+
+            cameraX += playerSpeed * deltaTime * std::cos(radianRotY - PI / 2);
+            cameraZ += playerSpeed * deltaTime * std::sin(radianRotY - PI / 2);
         }
 
         if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
-            cameraZ += playerSpeed * deltaTime;
+            float radianRotY = camerarotY * (PI / 180.0f); // Convert degrees to radians
+            float radianRotX = camerarotX * (PI / 180.0f); // Convert degrees to radians
+
+            cameraX -= playerSpeed * deltaTime * std::cos(radianRotY);
+            cameraZ -= playerSpeed * deltaTime * std::sin(radianRotY);
+
+            cameraY -= playerSpeed * deltaTime * std::sin(radianRotX);
         }
 
         if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
-            cameraZ -= playerSpeed * deltaTime;
+            float radianRotY = camerarotY * (PI / 180.0f); // Convert degrees to radians
+            float radianRotX = camerarotX * (PI / 180.0f); // Convert degrees to radians
+
+            cameraX += playerSpeed * deltaTime * std::cos(radianRotY);
+            cameraZ += playerSpeed * deltaTime * std::sin(radianRotY);
+
+            cameraY += playerSpeed * deltaTime * std::sin(radianRotX);
         }
 
         if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
-            cameraY += playerSpeed * deltaTime;
+            //cameraY += playerSpeed * deltaTime;
         }
 
         if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS) {
-            cameraY -= playerSpeed * deltaTime;
+            //cameraY -= playerSpeed * deltaTime;
         }
 
-
-        // Update camera position based on WASD keys
-        if (glfwGetKey(window, GLFW_KEY_O) == GLFW_PRESS) {
-            camerarotX += playerSpeed * deltaTime;
-        }
-
-        if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS) {
-            camerarotX -= playerSpeed * deltaTime;
-        }
-
-        if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS) {
-            camerarotZ += playerSpeed * deltaTime;
-        }
-
-        if (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS) {
-            camerarotZ -= playerSpeed * deltaTime;
-        }
-
-        if (glfwGetKey(window, GLFW_KEY_N) == GLFW_PRESS) {
-            camerarotY += playerSpeed * deltaTime;
-        }
-
-        if (glfwGetKey(window, GLFW_KEY_M) == GLFW_PRESS) {
-            camerarotY -= playerSpeed * deltaTime;
-        }
 
         float renderDistance = 1000.0f;
 
@@ -277,13 +312,6 @@ int main()
         // Set the view transformation based on the camera position
         lookAt(cameraX, cameraY, cameraZ, camerarotX, camerarotY, camerarotZ);
 
-
-        // Set the color for the mesh
-        glColor3f(
-            255.0f/ 255.0f,
-            0.0f / 255.0f,
-            0.0f / 255.0f
-        );
 
         for (auto it = meshes.begin(); it != meshes.end(); ++it) {
             it->draw();
