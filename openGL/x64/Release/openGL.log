@@ -1,17 +1,19 @@
 ﻿  main.cpp
-C:\Users\Liams\OneDrive\Documents\GitHub\3d-openGL\openGL\main.cpp(267,48): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-C:\Users\Liams\OneDrive\Documents\GitHub\3d-openGL\openGL\main.cpp(268,48): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-C:\Users\Liams\OneDrive\Documents\GitHub\3d-openGL\openGL\main.cpp(274,48): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-C:\Users\Liams\OneDrive\Documents\GitHub\3d-openGL\openGL\main.cpp(275,48): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-C:\Users\Liams\OneDrive\Documents\GitHub\3d-openGL\openGL\main.cpp(282,48): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
-C:\Users\Liams\OneDrive\Documents\GitHub\3d-openGL\openGL\main.cpp(283,48): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
-C:\Users\Liams\OneDrive\Documents\GitHub\3d-openGL\openGL\main.cpp(285,48): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
-C:\Users\Liams\OneDrive\Documents\GitHub\3d-openGL\openGL\main.cpp(292,48): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-C:\Users\Liams\OneDrive\Documents\GitHub\3d-openGL\openGL\main.cpp(293,48): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-C:\Users\Liams\OneDrive\Documents\GitHub\3d-openGL\openGL\main.cpp(295,48): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Liams\OneDrive\Documents\GitHub\3d-openGL\openGL\main.cpp(126,34): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\Liams\OneDrive\Documents\GitHub\3d-openGL\openGL\main.cpp(127,34): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\Liams\OneDrive\Documents\GitHub\3d-openGL\openGL\main.cpp(319,48): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Liams\OneDrive\Documents\GitHub\3d-openGL\openGL\main.cpp(320,48): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Liams\OneDrive\Documents\GitHub\3d-openGL\openGL\main.cpp(326,48): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Liams\OneDrive\Documents\GitHub\3d-openGL\openGL\main.cpp(327,48): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Liams\OneDrive\Documents\GitHub\3d-openGL\openGL\main.cpp(334,48): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Liams\OneDrive\Documents\GitHub\3d-openGL\openGL\main.cpp(335,48): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Liams\OneDrive\Documents\GitHub\3d-openGL\openGL\main.cpp(337,48): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Liams\OneDrive\Documents\GitHub\3d-openGL\openGL\main.cpp(344,48): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Liams\OneDrive\Documents\GitHub\3d-openGL\openGL\main.cpp(345,48): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Liams\OneDrive\Documents\GitHub\3d-openGL\openGL\main.cpp(347,48): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
   Generating code
-  96 of 98 functions (98.0%) were compiled, the rest were copied from previous compilation.
-    2 functions were new in current compilation
-    1 functions had inline decision re-evaluated but remain unchanged
+  0 of 108 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   openGL.vcxproj -> C:\Users\Liams\OneDrive\Documents\GitHub\3d-openGL\x64\Release\openGL.exe

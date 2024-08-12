@@ -4,11 +4,12 @@
 #include <ctime>
 #include <cmath>
 #include <list>
+#include <vector>
 
 // camear rot stuff
 
 // Global variables to keep track of the state
-bool isLeftMouseButtonPressed = false;
+bool isRightMouseButtonPressed = false;
 double lastMouseX = 0.0, lastMouseY = 0.0;
 
 
@@ -20,8 +21,8 @@ const int windowWidth = 1080;
 const int windowHeight = 1080;
 
 // Player size and speed
-const float playerSize = 25.0f;
-const float playerSpeed = 200.0f;
+const float playerSize = 0.0f;
+const float playerSpeed = 100.0f;
 
 // Camera position
 float cameraX = 0.0f;
@@ -103,17 +104,60 @@ std::list<Mesh> meshes;
 void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods) {
     if (button == GLFW_MOUSE_BUTTON_RIGHT) {
         if (action == GLFW_PRESS) {
-            isLeftMouseButtonPressed = true;
+            isRightMouseButtonPressed = true;
             glfwGetCursorPos(window, &lastMouseX, &lastMouseY);
         }
         else if (action == GLFW_RELEASE) {
-            isLeftMouseButtonPressed = false;
+            isRightMouseButtonPressed = false;
         }
     }
+
+    if (button == GLFW_MOUSE_BUTTON_LEFT) {
+        if (action == GLFW_PRESS) {
+            glfwGetCursorPos(window, &lastMouseX, &lastMouseY);
+
+            float distance = 5.0f;
+
+
+
+
+            for (int i = 0; i < 100000; i++) {
+
+                float mouseXReal = lastMouseX - (windowWidth / 2);
+                float mouseYReal = lastMouseY - (windowHeight / 2);
+
+                distance += 0.005f;
+                float radianRotY = camerarotY * (PI / 180.0f); // Convert degrees to radians
+                float radianRotX = camerarotX * (PI / 180.0f); // Convert degrees to radiansw
+                float rayX = cameraX + (distance * std::cos(radianRotX) * std::cos(radianRotY));
+                float rayY = cameraY + (distance * std::sin(radianRotX));
+                float rayZ = cameraZ + (distance * std::cos(radianRotX) * std::sin(radianRotY));
+
+                for (auto it = meshes.begin(); it != meshes.end(); ++it) {
+                    Mesh& mesh = *it;
+
+                    bool inside = (rayX >= mesh.location[0] && rayX <= mesh.location[0] + mesh.size[0]) &&
+                        (rayY >= mesh.location[1] && rayY <= mesh.location[1] + mesh.size[1]) &&
+                        (rayZ >= mesh.location[2] && rayZ <= mesh.location[2] + mesh.size[2]);
+
+                    if (inside) {
+                        // std::cout << mesh.color[0] << ", " << mesh.color[0] << ", " << mesh.color[0] << std::endl;
+                        // mesh.color = {255, 255, 255};
+                        mesh.location = { mesh.location[0], mesh.location[1] + 2, mesh.location[2] };
+                        // meshes.push_front({ {rayX, rayY, rayZ}, {2.0f, 2.0f, 2.0f}, {255, 255, 255} });
+                        return;
+                    }
+                }
+
+            }
+
+        }
+    }
+
 }
 
 void cursorPositionCallback(GLFWwindow* window, double mouseX, double mouseY) {
-    if (isLeftMouseButtonPressed) {
+    if (isRightMouseButtonPressed) {
         // Calculate the change in mouse position
         double deltaX = mouseX - lastMouseX;
         double deltaY = mouseY - lastMouseY;
@@ -203,6 +247,14 @@ void lookAt(float eyeX, float eyeY, float eyeZ, float rotX, float rotY, float ro
 
 int main()
 {
+
+    // stuff said at start
+    std::cout << "Starting Engine..." << std::endl;
+    std::cout << "Loaded!" << std::endl;
+    std::cout << "Logs will apear here | closing this console will close the program" << std::endl;
+
+
+
     GLFWwindow* window;
 
     // Initialize random seed
@@ -213,7 +265,7 @@ int main()
         return -1;
 
     /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(windowWidth, windowHeight, "3D Mesh Rendering", NULL, NULL);
+    window = glfwCreateWindow(windowWidth, windowHeight, "3D Game Engine", NULL, NULL);
     if (!window)
     {
         glfwTerminate();
@@ -247,7 +299,7 @@ int main()
 
     // Enable depth test
     glEnable(GL_DEPTH_TEST);
-
+        
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
     {
@@ -318,10 +370,52 @@ int main()
         }
 
 
-        /* Swap front and back buffers */
+        // Start 2D drawing for the crosshair
+        glMatrixMode(GL_PROJECTION);
+        glPushMatrix(); // Save the current projection matrix
+
+        glLoadIdentity();
+        // Set an orthographic projection for 2D drawing
+        glOrtho(0, windowWidth, windowHeight, 0, -1, 1); // Define the orthographic projection
+
+        glMatrixMode(GL_MODELVIEW);
+        glPushMatrix(); // Save the current modelview matrix
+
+        glLoadIdentity();
+        glDisable(GL_DEPTH_TEST); // Disable depth testing to ensure the crosshair is rendered on top
+
+        // Enable blending
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+        // Set color for the crosshair (gray with 50% transparency)
+        glColor4f(1.0f, 1.0f, 1.0f, 0.9f);
+
+        // Draw the crosshair
+        glBegin(GL_LINES);
+        // Vertical line
+        glVertex2f(windowWidth / 2 - 10, windowHeight / 2);
+        glVertex2f(windowWidth / 2 + 10, windowHeight / 2);
+        // Horizontal line
+        glVertex2f(windowWidth / 2, windowHeight / 2 - 10);
+        glVertex2f(windowWidth / 2, windowHeight / 2 + 10);
+        glEnd();
+
+        // Disable blending and re-enable depth testing
+        glDisable(GL_BLEND);
+        glEnable(GL_DEPTH_TEST);
+
+        // Restore the projection and modelview matrices
+        glMatrixMode(GL_PROJECTION);
+        glPopMatrix(); // Restore the saved projection matrix
+
+        glMatrixMode(GL_MODELVIEW);
+        glPopMatrix(); // Restore the saved modelview matrix
+
+        // Swap front and back buffers
         glfwSwapBuffers(window);
 
-        /* Poll for and process events */
+        // Poll for and process events
         glfwPollEvents();
     }
 
